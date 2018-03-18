@@ -1,6 +1,12 @@
 
 typedef unsigned long int u32;
 
+struct lineaEntrada {
+	int numCaracteres;
+	char texto[80];
+	struct lineaEntrada *next;
+};
+
 struct AristaSt {
   	u32 vert1;
   	u32 vert2;

@@ -1,9 +1,25 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include "grafo.h"
 
+void vaciarLinea(char (*linea)[], int size) {
+	for (int i=0; i<size; i++) {
+		(*linea)[i] = ' ';
+	}
+}
+
 Grafo ConstruccionDelGrafo() {
-	
+	char (*str)[] = malloc(1024*sizeof(char));
+   	scanf("%s", *str);
+	while (((*str)[0]) == 'c') {
+		vaciarLinea(str, 1024);
+		scanf("%s", *str);
+	}
+	if (strncmp("p edge", *str, 5)) {
+		printf("%s", *str);
+	}
+	free(str);
 	struct GrafoSt *grafo = malloc(sizeof(struct GrafoSt));
 	grafo->vertices = calloc(8, sizeof(u32));
 	grafo->aristas = calloc(8, sizeof(struct AristaSt));
@@ -34,6 +50,7 @@ Grafo ConstruccionDelGrafo() {
          
 }
 
+
 void DestruccionDelGrafo(Grafo G) {
 	free(G);
 }
@@ -58,6 +75,10 @@ u32 ColorDelVertice(Grafo G, u32 i) {
 	return (*(G->colores))[i];
 }
 
+/*u32 ColorJotaesimoVecino(Grafo G, u32 i, u32 j) {
+	
+}*/
+
 u32 GradoDelVertice(Grafo G, u32 i) {
 	u32 vertice = NombreDelVertice(G, i);
 	u32 grado = 0;
@@ -73,8 +94,8 @@ int main() {
 	Grafo G = ConstruccionDelGrafo();
 	//int f = (int) NombreDelVertice(G, 1);
 	//printf("%i", f);
-	int f = (int) GradoDelVertice(G, 0);
-	printf("%i", f);
+	//int f = (int) GradoDelVertice(G, 0);
+	//printf("%i", f);
 	DestruccionDelGrafo(G);
         return 0;
 }
