@@ -1,4 +1,6 @@
 
+#define MAXSIZE 1024 
+
 typedef unsigned long int u32;
 
 struct lineaEntrada {

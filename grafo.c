@@ -3,27 +3,36 @@
 #include <string.h>
 #include "grafo.h"
 
+
+
 void vaciarLinea(char (*linea)[], int size) {
 	for (int i=0; i<size; i++) {
 		(*linea)[i] = ' ';
 	}
 }
 
+
 Grafo ConstruccionDelGrafo() {
-	char (*str)[] = malloc(1024*sizeof(char));
-   	scanf("%s", *str);
+	char (*str)[] = malloc(MAXSIZE*sizeof(char));
+   	fgets(*str, MAXSIZE-1, stdin);
 	while (((*str)[0]) == 'c') {
-		vaciarLinea(str, 1024);
-		scanf("%s", *str);
+		vaciarLinea(str, MAXSIZE);
+		fgets(*str, MAXSIZE-1, stdin);
 	}
-	if (strncmp("p edge", *str, 5)) {
-		printf("%s", *str);
+	while (strncmp("p edge ", *str, 7)) {
+		vaciarLinea(str, MAXSIZE);
+		fgets(*str, MAXSIZE-1, stdin);
 	}
-	free(str);
+	u32 cantVertices;
+	u32 cantLados;
+	sscanf(*str, "%*[^0123456789]%ld%ld", &cantVertices, &cantLados);
+	printf("%ld %ld", cantVertices, cantLados);
+	
 	struct GrafoSt *grafo = malloc(sizeof(struct GrafoSt));
-	grafo->vertices = calloc(8, sizeof(u32));
-	grafo->aristas = calloc(8, sizeof(struct AristaSt));
-	grafo->numVertices = 8;
+	grafo->vertices = calloc(cantVertices, sizeof(u32));
+	grafo->aristas = calloc(cantLados, sizeof(struct AristaSt));
+	grafo->numVertices = cantVertices;
+	
 	(*(grafo->vertices))[0] = 1;
 	(*(grafo->vertices))[1] = 2;
 	(*(grafo->vertices))[2] = 3;
@@ -46,6 +55,7 @@ Grafo ConstruccionDelGrafo() {
 	((*(grafo->aristas))[5]).vert2 = 6;
 	((*(grafo->aristas))[6]).vert1 = 7;
 	((*(grafo->aristas))[6]).vert2 = 6;
+	free(str);
         return grafo;
          
 }
